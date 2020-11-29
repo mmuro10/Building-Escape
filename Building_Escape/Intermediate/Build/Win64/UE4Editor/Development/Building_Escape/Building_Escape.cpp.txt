@@ -1,0 +1,2 @@
+D:\Unreal Projects\Building Escape\Building_Escape\Intermediate\Build\Win64\UE4Editor\Development\Building_Escape\Definitions.Building_Escape.h
+d:\unreal projects\building escape\building_escape\source\building_escape\Building_Escape.h
