@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\Building_Escape.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{2C0E6A31-547D-400C-B32D-7A6D1C28282E}</UniqueIdentifier>
+      <UniqueIdentifier>{1EC273E1-4518-41D6-BF29-4B4D7554FCB0}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Building_Escape.Target.cs">
       <Filter>Source</Filter>
@@ -11,8 +11,9 @@
     <None Include="..\..\Source\Building_EscapeEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitignore" />
     <Filter Include="Config">
-      <UniqueIdentifier>{3A92F647-DCDD-4C51-BCC1-015946A3889E}</UniqueIdentifier>
+      <UniqueIdentifier>{B7A0DBE2-7B2D-48D9-923D-295D0109553D}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -24,7 +25,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\Building_Escape">
-      <UniqueIdentifier>{1C247395-3821-4964-A17D-6E5C0CC0FD50}</UniqueIdentifier>
+      <UniqueIdentifier>{A6AECF80-1AE1-49C5-9ED0-8478F2849E10}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Building_Escape\Building_Escape.Build.cs">
       <Filter>Source\Building_Escape</Filter>
@@ -42,14 +43,20 @@
       <Filter>Source\Building_Escape</Filter>
     </ClInclude>
     <Filter Include="Source\Building_Escape\Private">
-      <UniqueIdentifier>{30514CEB-0D50-47E6-92FE-8017D213A284}</UniqueIdentifier>
+      <UniqueIdentifier>{26CDF3F6-6BD6-420D-A66D-036D22FB33D4}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Building_Escape\Private\OpenDoor.cpp">
+      <Filter>Source\Building_Escape\Private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\Building_Escape\Private\WorldPosition.cpp">
       <Filter>Source\Building_Escape\Private</Filter>
     </ClCompile>
     <Filter Include="Source\Building_Escape\Public">
-      <UniqueIdentifier>{92D58855-C77A-4EDD-B534-7F9F1E3AC74A}</UniqueIdentifier>
+      <UniqueIdentifier>{9BB39004-C554-4D8E-ABE9-503927DAD4D9}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\Building_Escape\Public\OpenDoor.h">
+      <Filter>Source\Building_Escape\Public</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Building_Escape\Public\WorldPosition.h">
       <Filter>Source\Building_Escape\Public</Filter>
     </ClInclude>
