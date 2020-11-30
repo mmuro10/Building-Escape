@@ -80,6 +80,8 @@ DerivedDataCache/*
 
 Content/StarterContent/*
 
+Content/Megascans/*
+
 VSCode Files
 /.vscode/*
 BuildingEscape.code-workspace
