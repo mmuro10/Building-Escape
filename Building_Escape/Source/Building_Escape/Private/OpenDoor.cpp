@@ -1,8 +1,9 @@
 // GameDev.tv Team. Learn C++ and Make Video Games
 
-
 #include "OpenDoor.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 
 // Sets default values for this component's properties
 UOpenDoor::UOpenDoor()
@@ -12,8 +13,8 @@ UOpenDoor::UOpenDoor()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	
 }
-
 
 // Called when the game starts
 void UOpenDoor::BeginPlay()
@@ -21,43 +22,33 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	
 	// ...
-	
 	InitalYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = InitalYaw;
 	TargetYaw += InitalYaw;
 
-	
-	
-}
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s has OpenDoor component, but no pressureplateset"), *GetOwner()->GetName());
+	}
 
+	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
+}
 
 // Called every frame
 void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
+
+	if (PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens))
+	{
+		OpenDoor(DeltaTime);
+	}
+}
+
+void UOpenDoor::OpenDoor(float DeltaTime)
+{
 	CurrentYaw = FMath::Lerp(CurrentYaw,TargetYaw, DeltaTime * 1.f);
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
 	GetOwner()->SetActorRotation(DoorRotation);
-
-
-
-
-
-
-
-
-
-	// ...
-	//FRotator OpenNinty(0.f, TargetYaw, 0.f);
-	//GetOwner()->SetActorRotation(OpenNinty);
-
-	/*UE_LOG(LogTemp, Warning, TEXT("the yaw is %f"), GetOwner()->GetActorRotation().Yaw);
-
-	float CurrentYaw = GetOwner()->GetActorRotation().Yaw;
-	FRotator OpenDoor(0.f, 0.f, 0.f);
-	OpenDoor.Yaw = FMath::Lerp(CurrentYaw, TargetYaw, 0.02f);
-
-	GetOwner()->SetActorRotation(OpenDoor);*/
 }
