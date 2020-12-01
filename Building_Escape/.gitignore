@@ -82,6 +82,8 @@ Content/StarterContent/*
 
 Content/Megascans/*
 
+Intermediate/*
+
 VSCode Files
 /.vscode/*
 BuildingEscape.code-workspace
