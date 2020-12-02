@@ -13,18 +13,20 @@ class BUILDING_ESCAPE_API UOpenDoor : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UOpenDoor();
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:	
+	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void OpenDoor(float DeltaTime);
 
 	void CloseDoor(float DeltaTime);
+
+	float TotalMassOfActors() const;
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
 
 private:
 
@@ -49,4 +51,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float DoorCloseVelocity = 1.f;
+
+	UPROPERTY(EditAnywhere)
+	float WeightLimit = 100.f;
 };
