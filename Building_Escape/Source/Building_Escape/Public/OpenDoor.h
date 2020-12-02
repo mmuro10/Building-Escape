@@ -23,6 +23,13 @@ public:
 
 	float TotalMassOfActors() const;
 
+	void FindAudioComponent();
+
+	void FindPressurePlate() const;
+
+	bool OpenDoorSound = false;
+	bool CloseDoorSound = true;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -51,4 +58,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float WeightLimit = 100.f;
+
+	UPROPERTY()
+	UAudioComponent* AudioComponent = nullptr;
 };
