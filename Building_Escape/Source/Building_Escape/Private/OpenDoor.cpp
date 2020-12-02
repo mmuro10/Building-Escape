@@ -23,10 +23,9 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	
 	// ...
-	InitalYaw = GetOwner()->GetActorRotation().Yaw;
-	CurrentYaw = InitalYaw;
-	OpenAngle += InitalYaw;
-
+	InitialYaw = GetOwner()->GetActorRotation().Yaw;
+	CurrentYaw = InitialYaw;
+	OpenAngle += InitialYaw;
 
 	FindPressurePlate();
 	FindAudioComponent();
@@ -78,8 +77,7 @@ void UOpenDoor::OpenDoor(float DeltaTime)
 
 void UOpenDoor::CloseDoor(float DeltaTime)
 {
-
-	CurrentYaw = FMath::Lerp(CurrentYaw, InitalYaw, DeltaTime * DoorCloseVelocity);
+	CurrentYaw = FMath::Lerp(CurrentYaw, InitialYaw, DeltaTime * DoorCloseVelocity);
 	FRotator DoorRotation = GetOwner()->GetActorRotation();
 	DoorRotation.Yaw = CurrentYaw;
 	GetOwner()->SetActorRotation(DoorRotation);

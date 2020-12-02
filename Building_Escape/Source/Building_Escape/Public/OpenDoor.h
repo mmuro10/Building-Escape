@@ -37,7 +37,7 @@ protected:
 
 private:
 
-	float InitalYaw;
+	float InitialYaw;
 	float CurrentYaw;
 	float DoorLastOpened = 0.f;
 	
