@@ -28,28 +28,56 @@ void UGrabber::BeginPlay()
 
 void UGrabber::Grab()
 {
+	//TODO Refractor
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
+
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+
 	UE_LOG(LogTemp, Warning, TEXT("Grabbing"));
 
 	//TODO ONly raycast when button pressed and Try and reach any Actor with collision body set
 
-	GetFirstPhysicsBodyInReach();
+	FHitResult HitResult = GetFirstPhysicsBodyInReach();
+	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
 
-	//if hit something then attach phyics handle
+		//if hit something then attach phyics handle
+	if (HitResult.GetActor())
+	{
+		PhysicsHandle->GrabComponentAtLocation
+			(
+				ComponentToGrab,
+				NAME_None,
+				LineTraceEnd
+			);
+	}
 }
 
 void UGrabber::Released()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Letting Go"));
 	//Remove release physics handle
+	PhysicsHandle->ReleaseComponent();
 }
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	
-	
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
 
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT PlayerViewPointLocation, OUT PlayerViewPointRotation);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	if (PhysicsHandle->GrabbedComponent)
+	{
+		//Physics handle is found
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+	}
 }
 
 //Checking if PhysicsHandle component 

@@ -79,8 +79,9 @@ DerivedDataCache/*
 Content/StarterContent/*
 
 Content/Megascans/*
+Content/MedievalDungeon
 
-Intermediate/*
+
 
 VSCode Files
 /.vscode/*
