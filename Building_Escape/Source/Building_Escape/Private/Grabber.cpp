@@ -32,21 +32,26 @@ void UGrabber::Grab()
 
 	FHitResult HitResult = GetFirstPhysicsBodyInReach();
 	UPrimitiveComponent* ComponentToGrab = HitResult.GetComponent();
+	AActor* ActorHit = HitResult.GetActor();
 
 		//if hit something then attach phyics handle
-	if (HitResult.GetActor())
+	if (ActorHit)
 	{
+		//protection for pointer
+		if (!PhysicsHandle) { return; };
 		PhysicsHandle->GrabComponentAtLocation
-			(
-				ComponentToGrab,
-				NAME_None,
-				GetLineTraceEnd()
-			);
+		(
+			ComponentToGrab,
+			NAME_None,
+			GetLineTraceEnd()
+		);
 	}
 }
 
 void UGrabber::Released()
 {
+	//protection for pointer
+	if (!PhysicsHandle) { return; };
 	//Remove release physics handle
 	PhysicsHandle->ReleaseComponent();
 }
@@ -55,6 +60,9 @@ void UGrabber::Released()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	//protection for pointer
+	if (!PhysicsHandle) { return; };
 	if (PhysicsHandle->GrabbedComponent)
 	{
 		//Physics handle is found
@@ -67,7 +75,7 @@ void UGrabber::FindPhysicsHandle()
 {
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 
-	if (PhysicsHandle == nullptr)
+	if (!PhysicsHandle)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s has no PhysicsHandle."), *GetOwner()->GetName());
 	}
