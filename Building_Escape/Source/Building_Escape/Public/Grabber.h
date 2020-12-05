@@ -22,7 +22,11 @@ public:
 	void Grab();
 	void Released();
 	void FindPhysicsHandle();
+	void FindAudioComponent();
 	void SetUpInputComponent();
+
+	bool PickUpSound = false;
+	bool DropSound = true;
 
 protected:
 	// Called when the game starts
@@ -36,6 +40,9 @@ private:
 
 	UPROPERTY()
 	UInputComponent* InputComponent = nullptr;	
+
+	UPROPERTY()
+	UAudioComponent* AudioComponent = nullptr;
 
 	//Return the first Actor within reach with physics body
 	FHitResult GetFirstPhysicsBodyInReach() const;

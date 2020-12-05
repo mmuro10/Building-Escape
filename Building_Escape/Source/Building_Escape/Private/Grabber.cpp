@@ -2,6 +2,7 @@
 
 
 #include "Grabber.h"
+#include "Components/AudioComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
 
@@ -24,6 +25,7 @@ void UGrabber::BeginPlay()
 	
 	FindPhysicsHandle();
 	SetUpInputComponent();
+	FindAudioComponent();
 }
 
 void UGrabber::Grab()
@@ -45,6 +47,14 @@ void UGrabber::Grab()
 			NAME_None,
 			GetLineTraceEnd()
 		);
+		
+		DropSound = false;
+		if (!AudioComponent) { return; }
+		if (!PickUpSound)
+		{
+			AudioComponent->Play();
+			PickUpSound = true;
+		}
 	}
 }
 
@@ -54,6 +64,14 @@ void UGrabber::Released()
 	if (!PhysicsHandle) { return; };
 	//Remove release physics handle
 	PhysicsHandle->ReleaseComponent();
+
+	PickUpSound = false;
+	if (!AudioComponent) { return; }
+	if (!DropSound)
+	{
+		AudioComponent->Play();
+		DropSound = true;
+	}
 }
 
 // Called every frame
@@ -146,4 +164,15 @@ FVector UGrabber::GetPlayersWorldPos() const
 
 	return PlayerViewPointLocation;
 
+}
+
+void UGrabber::FindAudioComponent()
+{
+	AudioComponent = GetOwner()->FindComponentByClass<UAudioComponent>();
+	
+	if (!AudioComponent)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s Missing audio component!"), *GetOwner()->GetName());
+		//AudioComponent->Play();
+	}
 }
