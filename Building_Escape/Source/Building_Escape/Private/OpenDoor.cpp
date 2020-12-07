@@ -117,6 +117,5 @@ void UOpenDoor::FindAudioComponent()
 	if (!AudioComponent)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s Missing audio component!"), *GetOwner()->GetName());
-		//AudioComponent->Play();
 	}
 }
